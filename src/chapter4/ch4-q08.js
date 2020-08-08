@@ -46,3 +46,34 @@ function moveUp(node, count) {
   }
   return node;
 }
+
+// suppose types match
+export const f = (root, p, q) => {
+  if (!p || !q)
+    throw new Error('node1 and node2 must both be valid nodes');
+
+  if(!isAncestor(root, p) || !isAncestor(root, q))
+    return null; // null tree is LCA of all trees
+
+  return _g(root, p, q);
+};
+
+const _g = function g(root, p, q) {
+  if(!root || root === p || root === q)
+    return root;
+
+  const pIsLeftDesc = isAncestor(root.left, p),
+        qIsLeftDesc = isAncestor(root.left, q)
+  if(pIsLeftDesc && qIsLeftDesc)
+    return g(root.left, p, q);
+  else if(!pIsLeftDesc && !qIsLeftDesc)
+    return g(root.right, p, q);
+  return root;
+};
+
+const isAncestor = function* (u, v) {
+  if(!u && !v) return true;
+  if(!u || !v) return false;
+  return u === v || isAncestor(u.left, v)
+                 || isAncestor(u.right, v);
+};
