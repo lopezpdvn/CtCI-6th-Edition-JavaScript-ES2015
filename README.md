@@ -21,6 +21,12 @@ at any time with:
 npm test
 ```
 
+Selectively:
+
+```bash
+npm test -- --grep "ch4-q08"
+```
+
 As part of the unit tests ESLint will also be run against all files to ensure
 that the JavaScript is valid and follows best practice.
 
